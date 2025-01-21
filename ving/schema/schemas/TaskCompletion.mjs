@@ -1,0 +1,55 @@
+import { baseSchemaId, baseSchemaCreatedAt, baseSchemaUpdatedAt, dbVarChar, zodString, dbEnum, dbBoolean, dbText, dbRelation, dbDateTime, dbTimestamp, dbBigInt, dbInt, dbUuid, dbJson, zodNumber, zodJsonObject, dbMediumText } from '../helpers.mjs';
+
+export const taskCompletionSchema = {
+    kind: 'TaskCompletion',
+    tableName: 'taskcompletions',
+    owner: ['$completedById', 'admin'],
+    props: [
+        { ...baseSchemaId },
+        { ...baseSchemaCreatedAt },
+        { ...baseSchemaUpdatedAt },
+        {
+            type: "string",
+            name: "manifestTaskId",
+            required: true,
+            unique: false,
+            length: 36,
+            default: '',
+            filterQuery: true,
+            db: (prop) => dbUuid(prop),
+            zod: (prop) => zodString(prop),
+            view: ['public'],
+            edit: ['owner'],
+        },
+        {
+            type: "id",
+            name: 'orderId',
+            required: true,
+            filterQualifier: true,
+            db: (prop) => dbRelation(prop),
+            relation: {
+                type: 'parent',
+                name: 'order',
+                kind: 'Order',
+            },
+            default: undefined,
+            view: ['public'],
+            edit: ['owner'],
+        },
+        {
+            type: "id",
+            name: 'completedById',
+            required: true,
+            filterQualifier: true,
+            db: (prop) => dbRelation(prop),
+            relation: {
+                type: 'parent',
+                name: 'user',
+                kind: 'User',
+            },
+            default: undefined,
+            view: ['public'],
+            edit: ['owner'],
+        },
+    ],
+};

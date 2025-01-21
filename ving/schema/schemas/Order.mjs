@@ -29,5 +29,18 @@ export const orderSchema = {
             view: ['public'],
             edit: [],
         },
+        {
+            type: "virtual",
+            name: 'orderId',
+            required: false,
+            view: ['public'],
+            edit: [],
+            default: undefined,
+            relation: {
+                type: 'child',
+                name: 'taskcompletions',
+                kind: 'TaskCompletion',
+            },
+        },
     ],
 };
