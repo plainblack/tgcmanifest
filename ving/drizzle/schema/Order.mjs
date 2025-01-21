@@ -10,8 +10,8 @@ export const OrderTable = mysqlTable('orders',
 		orderNumber: int('orderNumber').notNull().default(0),
 		manifest: json('manifest').notNull().default({})
     }, 
-    (table) => ({
+    (table) => ([
         
-    })
+    ])
 );
 
