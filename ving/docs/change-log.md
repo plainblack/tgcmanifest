@@ -5,6 +5,13 @@ outline: deep
 
 ## January 2025
 
+### 2025-01-21
+ * Fixed a bug where undefined tables were added to the drizzle map due to yesterday's fix.
+ * Updated to latest drizzle, mysql2, nuxt, primevue, bullmq, and keyv modules.
+ * NOTE: Run `npm i` to update your modules.
+ * NOTE: PrimeVue now has a component called Form, so the Ving component called Form has been renamed to VForm. You'll need to update all your pages to use VForm. 
+ * Fixed: replace db.session.client.pool.end() with db.$client.pool.end() #195
+
 ### 2025-01-20
  * Fixed a problem where CLI would try to update the drizzle map when creating a new ving schema.
 
