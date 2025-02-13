@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.504.0",
+    "@aws-sdk/client-sqs": "^3.744.0",
     "@aws-sdk/s3-request-presigner": "^3.504.0",
     "@keyv/redis": "^2.8.5",
     "@pinia/nuxt": "^0.4.11",

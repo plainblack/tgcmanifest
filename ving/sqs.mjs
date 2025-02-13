@@ -25,6 +25,7 @@ export async function receiveMessages() {
 
     try {
         const response = await sqsClient.send(command)
+        console.log('Received messages:', response.Messages)
         return response.Messages || []
     } catch (error) {
         console.error('Error receiving messages:', error)

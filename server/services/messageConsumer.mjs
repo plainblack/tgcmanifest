@@ -3,7 +3,9 @@ import { receiveMessages, deleteMessage } from '#ving/sqs.mjs'
 async function processMessage(message) {
     try {
         // Parse message body
-        const body = JSON.parse(message.Body)
+        // const body = JSON.parse(message.Body)
+        const manifestUrl = message.Body
+
 
         // TODO: Fetch manifest and store in database
         console.log('Processing message:', body)
