@@ -87,15 +87,15 @@ async function processMessage(message) {
         log('sqs').info(`Processed order ${orderNumber}`)
 
         // Delete message after successful processing
-        //await deleteMessage(message.ReceiptHandle)
+        await deleteMessage(message.ReceiptHandle)
     } catch (error) {
         log('sqs').error('Error processing message:', error)
         // Don't delete message - it will return to queue after visibility timeout
     }
 }
 
-export async function startMessageConsumer() {
-    log('sqs').info('Starting SQS message consumer...')
+export async function startManifestConsumer() {
+    log('sqs').info('Starting SQS manifest consumer...')
 
     while (true) {
         try {
