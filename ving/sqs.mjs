@@ -1,4 +1,5 @@
 import { SQSClient, ReceiveMessageCommand, DeleteMessageCommand } from '@aws-sdk/client-sqs'
+import { log } from '#ving/log.mjs';
 
 export const config = {
     queueUrl: process.env.AWS_SQS_QUEUE_URL,
@@ -25,10 +26,10 @@ export async function receiveMessages() {
 
     try {
         const response = await sqsClient.send(command)
-        console.log('Received messages:', response.Messages)
+        log('sqs').debug('Received messages: ' + JSON.stringify(response.Messages))
         return response.Messages || []
     } catch (error) {
-        console.error('Error receiving messages:', error)
+        log('sqs').error('Error receiving messages:', error)
         return []
     }
 }
@@ -43,6 +44,6 @@ export async function deleteMessage(receiptHandle) {
     try {
         await sqsClient.send(command)
     } catch (error) {
-        console.error('Error deleting message:', error)
+        log('sqs').error('Error deleting message:', error)
     }
 } 
