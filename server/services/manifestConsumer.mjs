@@ -2,6 +2,7 @@ import { receiveMessages, deleteMessage } from '#ving/sqs.mjs'
 import { useKind } from '#ving/record/utils.mjs'
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3'
 import { log } from '#ving/log.mjs';
+import { eq } from '#ving/drizzle/orm.mjs';
 
 // Initialize S3 client
 const s3Client = new S3Client({
@@ -71,7 +72,7 @@ async function processMessage(message) {
         }
 
         const orders = await useKind('Order');
-        const order = await orders.find({ orderNumber });
+        const order = await orders.findOne(eq(orders.table.orderNumber, orderNumber));
         if (order) {
             order.update({
                 manifest
@@ -87,7 +88,7 @@ async function processMessage(message) {
         log('sqs').info(`Processed order ${orderNumber}`)
 
         // Delete message after successful processing
-        await deleteMessage(message.ReceiptHandle)
+        //  await deleteMessage(message.ReceiptHandle)
     } catch (error) {
         log('sqs').error('Error processing message:', error)
         // Don't delete message - it will return to queue after visibility timeout
