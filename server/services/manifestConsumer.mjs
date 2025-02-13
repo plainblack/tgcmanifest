@@ -85,10 +85,10 @@ async function processMessage(message) {
             });
         }
 
-        log('sqs').info(`Processed order ${orderNumber}`)
+        log('sqs').info(`Processed order ${orderNumber}`);
 
         // Delete message after successful processing
-        //  await deleteMessage(message.ReceiptHandle)
+        await deleteMessage(message.ReceiptHandle);
     } catch (error) {
         log('sqs').error('Error processing message:', error)
         // Don't delete message - it will return to queue after visibility timeout
@@ -100,15 +100,15 @@ export async function startManifestConsumer() {
 
     while (true) {
         try {
-            const messages = await receiveMessages()
+            const messages = await receiveMessages();
 
             for (const message of messages) {
-                await processMessage(message)
+                await processMessage(message);
             }
         } catch (error) {
-            log('sqs').error('Error in message consumer:', error)
+            log('sqs').error('Error in message consumer:', error);
             // Wait before retrying on error
-            await new Promise(resolve => setTimeout(resolve, 5000))
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
     }
 } 
