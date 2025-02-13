@@ -39,7 +39,9 @@ async function getManifestFromS3(url) {
 
     const response = await s3Client.send(command)
     const manifestStr = await response.Body.transformToString()
-    return JSON.parse(manifestStr)
+    const manifest = JSON.parse(manifestStr)
+    console.log('Manifest:', manifest)
+    return manifest;
 }
 
 async function processMessage(message) {
