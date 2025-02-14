@@ -66,7 +66,18 @@ const currentOrderTasks = computed(() => {
         ...task,
         completed: false // We'll need to sync this with Yjs later
     }))
-})
+});
+
+const orders = useVingKind({
+    listApi: `/api/${useRestVersion()}/orders`,
+    createApi: `/api/${useRestVersion()}/orders`,
+    query: { includeMeta: true, sortBy: 'orderNumber', sortOrder: 'asc'  },
+});
+await Promise.all([
+   // orders.search(),
+    orders.fetchPropsOptions(),
+]);
+onBeforeRouteLeave(() => orders.dispose());
 
 // Load saved station from localStorage
 onMounted(() => {

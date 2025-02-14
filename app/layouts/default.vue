@@ -22,10 +22,7 @@
                 <div class="flex items-center gap-2">
                     <DarkModeSelector/>               
                     <InputGroup>
-                        <InputGroupAddon>
-                            <Icon name="ion:search"/>
-                        </InputGroupAddon>
-                        <InputText placeholder="Search (non-functional)" type="text" class="w-8rem sm:w-auto" />
+                        <OrderSearch/>
                     </InputGroup>
                     <SplitButton v-if="currentUser.props?.id" :model="userMenu" text>
                         <NuxtLink to="/users/settings" class="flex items-center">

@@ -14,6 +14,7 @@ export const orderSchema = {
             required: true,
             default: 0,
             filterRange: true,
+            filterQualifier: true,
             db: (prop) => dbInt(prop),
             zod: (prop) => zodNumber(prop).nonnegative(),
             view: ['public'],
