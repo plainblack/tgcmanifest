@@ -3,7 +3,7 @@
     <PanelFrame :title="`Order #${order.props?.orderNumber}`" section="Orders">
        
         <template #content>
-            <StationInterface />
+            <StationInterface :order="order" />
 
             <PanelZone v-if="order.props?.id">
                 
